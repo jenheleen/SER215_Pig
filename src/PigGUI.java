@@ -415,6 +415,7 @@ public void start(){
 	do{
 	//roll dice
 	dice.rollDice();
+	rollAgain = false;
 	//get each dice value & total score
 	die1Score = dice.getdieValue(1);
 	die2Score = dice.getdieValue(2);
@@ -563,12 +564,12 @@ public void start(){
 				//textArea.append("Times won: "+win+" loss: "+loss);
 				//textArea.append("=================================");
 				//Prompt to play again
-				textArea.append("[Play again? Y/N]");
+				//textArea.append("[Play again? Y/N]");
 				
-				if ( rolling.equals("Y") || rolling.endsWith("y") ){
-					start(); //Start new round
+				//if ( rolling.equals("Y") || rolling.endsWith("y") ){
+				//	start(); //Start new round
 					
-				}
+				//}
 			}
 			
 		}
@@ -578,6 +579,8 @@ public void start(){
 			//Print results
 			textArea.append(yourName.getName()+"'s Score:"+userScore);
 			textArea.append("Computer Score:"+computerScore);
+			lblComputerScore.setText(String.valueOf(computerScore));
+			lblComputerScore.repaint();
 			
 			//Check if winner
 			if ( checkWin(computerScore) == true ){
@@ -592,18 +595,18 @@ public void start(){
 				//textArea.append("Times won: "+win+" loss: "+loss);
 				//textArea.append("===========================================");
 				//Prompt to play again
-				textArea.append("[Play again? Y/N]");
+				//textArea.append("[Play again? Y/N]");
 				
-				if ( rolling.equals("Y") || rolling.endsWith("y") ){
-					start(); //Start new round
-				}
+				//if ( rolling.equals("Y") || rolling.endsWith("y") ){
+				//	start(); //Start new round
+				//}
 			}
 			
 		}
 		//No winners yet
 		if ( winner == 0){
 			//After end of user turn, prompt to roll again or hold
-			rollAgain = prompt(checkTurn,diceScore);	
+			rollAgain = prompt(checkTurn,diceScore);
 			if(rollAgain == true){
 				//Continue rolling
 			}
