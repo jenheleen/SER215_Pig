@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,6 +13,7 @@ JPanel dicePanel;
 private JPanel dicePanel_1;
 JButton rollDice;
 JButton hold;
+JButton startGame;
 JMenu options;
 JMenuItem quit;
 JMenuItem seeStats;
@@ -19,7 +21,6 @@ JMenuItem howtoPlay;
 JMenuBar menuBar;
 JLabel diceLabel;
 JLabel diceLabel2;
-Dice dice;
 Graphics die1;
 Graphics die2;
 private boolean rolling;
@@ -49,6 +50,26 @@ private JMenuItem Medium;
 private JMenuItem Expert;
 int difficultyLevel = 1;
 
+//pig game info
+final int winPoints = 100;
+
+private int userScore;
+@SuppressWarnings("unused")
+private int computerScore;
+private int computerMaxTurn = 0;
+private int gameCount = 0;
+private int win=0;
+private int loss=0;
+
+private boolean checkTurn;
+private Dice dice;
+
+private String userName="";
+playerName yourName = new playerName(null);
+
+private int userDifficulty = 0;
+difficulty difficulty = new difficulty(0);
+
 public PigGUI()
 {
     setTitle("Play Pig!");
@@ -66,6 +87,8 @@ public PigGUI()
     howtoPlay = new JMenuItem("How to Play");
     menuBar = new JMenuBar();
     dice = new Dice();
+    startGame = new JButton();
+
     
     Six = new JMenuItem("D-6");
     twelve = new JMenuItem("D-12");
@@ -105,14 +128,17 @@ public PigGUI()
     mainPanel.setPreferredSize(new Dimension(600,600));
     mainPanel.setLayout(null);
     
+    //CONSOLE TEXT!
     textArea = new JTextArea();
     textArea.setBackground(Color.WHITE);
     textArea.setBounds(184, 251, 319, 173);
     mainPanel.add(textArea);
+    textArea.setText("Welcome to PIG!");
     
     lblPlayerSettings = new JLabel("Console:");
     lblPlayerSettings.setBounds(184, 230, 141, 16);
     mainPanel.add(lblPlayerSettings);
+   
     
     lblPlayer = new JLabel("PLAYER 1:");
     lblPlayer.setBounds(184, 184, 85, 16);
@@ -159,9 +185,7 @@ public PigGUI()
     label_1.setBounds(781, 338, 122, 16);
     mainPanel.add(label_1);
     
-   // textField = new JTextField();
-   // textField.setText("enter number 1-3");
-   // textField.setColumns(10);
+
     difficultyMenu.setBounds(903, 333, 130, 26);
     mainPanel.add(difficultyMenu);
     
@@ -169,11 +193,12 @@ public PigGUI()
     lblNewLabel_2.setBounds(781, 366, 252, 16);
     mainPanel.add(lblNewLabel_2);
     
-    JButton btnNewButton = new JButton("Save Player Settings");
-    btnNewButton.setBounds(840, 395, 149, 29);
+    startGame = new JButton("Start the Game!");
+    startGame.setBounds(840, 395, 149, 29);
     
     
-    mainPanel.add(btnNewButton);
+    
+    mainPanel.add(startGame);
     mainPanel.add(optionPanel);
     mainPanel.add(dicePanel_1);
     diceLabel2 = new JLabel();
@@ -193,6 +218,7 @@ public PigGUI()
     Easy.addActionListener(this);
     Medium.addActionListener(this);
     Expert.addActionListener(this);
+    startGame.addActionListener(this);
     
 
     this.getContentPane().add(mainPanel);
@@ -222,7 +248,12 @@ public PigGUI()
 
 public void actionPerformed(ActionEvent e) {
 	
-    if (e.getSource()== quit)
+    if (e.getSource() == startGame)
+    {
+    	start();
+      
+    }
+	if (e.getSource()== quit)
         System.exit(0);
     
     
@@ -231,6 +262,7 @@ public void actionPerformed(ActionEvent e) {
     {
         JOptionPane.showMessageDialog(mainPanel,
                 "Your stats are: "); 
+      
     }
     //Message dialog under options how to play & set up
     if (e.getSource() == howtoPlay)
@@ -241,7 +273,7 @@ public void actionPerformed(ActionEvent e) {
                 + "Ener your first name and how many sides you'd like on each die ex: 1-20.\n"
                 + "Then select a difficulty level by entering the corresponding value.\n"
                 + "EASY = 1, MEDIUM = 2, and HARD = 3\n"
-                + "Finish by clicking 'Save Player Settings'\n"
+                + "Finish by clicking 'Start Game'\n"
                 + "=============================HOW TO PLAY=============================\n"
                 + "The object of the game is to be the first player to reach 100 points.\n"
                 + "You may choose to keep rolling the die or hold while it is your turn.\n"
@@ -252,7 +284,7 @@ public void actionPerformed(ActionEvent e) {
     if (e.getSource() == rollDice)
     {
 
-
+    	textArea.setText("!");
     	rolling = true;
     }
     
@@ -290,6 +322,200 @@ public void actionPerformed(ActionEvent e) {
     }
 }
 
+public void gamePig(){
+	//Variables
+	userScore = 0; 
+	computerScore = 0;
+	checkTurn = false;
+	dice = new Dice();	
+	int firstRoll = 0;
+	
+	//Starting game prompts
+	textArea.setText("===============Pig Dice Game===============");
+	//User input name
+	//System.out.println("Enter your name: ");
+	//userName = scan.next();
+	yourName.setplayerName(EnterName);
+	//User input game difficulty
+	
+	 dice = new Dice(diceSideNumber);
+	
+	//Starting game message
+	 textArea.setText("=========================================== \n");
+	 textArea.setText(userName + " has started a game of Pig. \n");
+	
+	//Determine who goes first
+	 textArea.setText("Coin toss to see who goes first...\n");
+	firstRoll = (int)(Math.random() * 2) + 1; 
+	if(firstRoll==1){
+		checkTurn=false; //Set user as first turn
+		textArea.setText(userName + " goes first!\n");
+	}
+	else{
+		checkTurn=true; //Set computer as first turn
+		textArea.setText("Computer goes first!\n");	
+	}
+}
+public void start(){
+	//Variables
+	int winner = 0;
+	userScore = 0;
+	int computerScore = 0;
+	boolean rollAgain = false;
+	int die1Score, die2Score, diceScore;
+	String userTurn;
+	String rolling = null;
+	
+	
+	do{
+	//roll dice
+	dice.rollDice();
+	//get each dice value & total score
+	die1Score = dice.getdieValue(1);
+	die2Score = dice.getdieValue(2);
+	diceScore = dice.getPairValue();
+	
+	//Check whose turn it is
+	if(checkTurn==false)
+		userTurn = yourName.getName();
+	else
+		userTurn = "Computer";
+	//Display whose turn it is
+	textArea.append("================================================= \n");
+	textArea.append("\nIts " + userTurn + "'s turn \n");
+
+	//Display scores from turn
+	textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
+	
+	//Check if a one was rolled
+	if(dice.rollOne()==true){
+		textArea.append("You rolled a 1. You forfeit this turn's points. \n"+ userTurn + " hands over the dice.");
+		checkTurn = !checkTurn; //End current turn
+		
+	}
+	//Check for snake eyes
+	else if(dice.snakeEyes()==true){
+		// Check whose turn & reset that score
+		if( checkTurn == false ){
+			userScore = 0;
+		}
+		else{
+			computerScore = 0;
+		}
+		textArea.append("SNAKE EYES - Your total score is now 0.\n "+ userTurn + " hands over dice.");
+		checkTurn = !checkTurn;  // //End current turn
+		
+	}
+	else{//If no 1 or no snake eyes
+		if(checkTurn == false ){ //user's turn
+			//Calculate user's score
+			userScore = userScore+diceScore;
+			//Print results
+			textArea.append(yourName.getName()+"'s Score:"+userScore);
+			textArea.append("Computer Score:"+computerScore);
+			
+			//Check if winner
+			if ( checkWin(userScore) == true ){
+				winner = 1;
+				win++; // Add to win count
+				gameCount++; // Add to total game count
+				
+				//Display win and game stats
+				textArea.append("\n~~*"+ yourName.getName() +" wins!*~~\n");
+				textArea.append("=================================");
+				textArea.append("Total games played: " +gameCount);
+				textArea.append("Times won: "+win+" loss: "+loss);
+				textArea.append("=================================");
+				//Prompt to play again
+				textArea.append("[Play again? Y/N]");
+				
+				if ( rolling.equals("Y") || rolling.endsWith("y") ){
+					start(); //Start new round
+					
+				}
+			}
+			
+		}
+		else{ // Computer's turn
+			//Calculate computer's score
+			computerScore = computerScore+diceScore;
+			//Print results
+			textArea.append(yourName.getName()+"'s Score:"+userScore);
+			textArea.append("Computer Score:"+computerScore);
+			
+			//Check if winner
+			if ( checkWin(computerScore) == true ){
+				winner = 1;
+				loss++; //Add to loss count
+				gameCount++;// Add to total game count
+				
+				//Display win and game stats
+				textArea.append("\n~~*Computer wins!*~~\n");
+				textArea.append("================GAME STATS=================");
+				textArea.append("Total games played: " +gameCount);
+				textArea.append("Times won: "+win+" loss: "+loss);
+				textArea.append("===========================================");
+				//Prompt to play again
+				textArea.append("[Play again? Y/N]");
+				
+				if ( rolling.equals("Y") || rolling.endsWith("y") ){
+					start(); //Start new round
+				}
+			}
+			
+		}
+		//No winners yet
+		if ( winner == 0){
+			//After end of user turn, prompt to roll again or hold
+			rollAgain = prompt(checkTurn,diceScore);	
+			if(rollAgain == true){
+				//Continue rolling
+			}
+			else{
+				// End turn. Hand dice over
+				checkTurn = !checkTurn; 
+				computerMaxTurn = 0; //Resets computer's max points per turn
+			}	
+		}						
+	}		
+} while (winner == 0); // loop until a win is initiated				
+}
+
+//At the end of turns check score for a winner
+private boolean checkWin(int score){
+boolean win = false; //initially no winner
+
+if(score>=winPoints) //check if score >= 100
+win = true; // trigger win
+return win; // set win
+}
+
+//Determine when computer holds
+private boolean prompt(boolean computer, int currentScore){
+String userInput;
+boolean rolling = false;
+
+//When it's the computer's turn
+if(computer == true){
+// Max points per turn
+computerMaxTurn = computerMaxTurn+currentScore;
+//Keep rolling until max points (based on difficulty)
+if(computerMaxTurn < difficulty.getlevel()){
+	rolling = true;
+}
+//Hold when max points are reached
+else{
+	textArea.append("The computer has decided to hold.");
+}	
+}
+else{
+//When it's user's turn prompt to roll or hold
+
+rolling = true;
+}
+
+return rolling;
+}
 
 @Override
 public void focusGained(FocusEvent e) {
@@ -322,3 +548,44 @@ public void focusLost(FocusEvent e) {
 
 }
 }
+
+
+class playerName {
+	
+	private String name;
+	
+	public playerName(String name){
+		this.name = name;
+	}
+
+	public void setplayerName(String name){
+		this.name=name;
+	}
+	
+	public String getName(){
+		return name;
+	}
+}
+
+class difficulty {
+	
+	private int level;
+	
+	public difficulty(int level){
+		if(level == 1) this.level = 1;
+		else if (level == 2)this.level = 20;
+		else this.level = 40;
+	}
+
+	public void setlevel(int level){
+		if(level == 1) this.level = 1;
+		else if (level == 2)this.level = 20;
+		else this.level = 40;
+	}
+	
+	public int getlevel(){
+		return level;
+	}
+}
+
+
