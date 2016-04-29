@@ -36,6 +36,18 @@ private JLabel lblDiceSides;
 private JTextField txtEnterYourName;
 private JTextField textField;
 private final String EnterName = "Enter Your Name";
+private JMenu diceSides;
+private JMenuItem Six;
+private JMenuItem twelve;
+int diceSideNumber = 6;
+private JMenuItem twenty;
+private JMenuBar diceMenu;
+private JMenu difficulties;
+private JMenuBar difficultyMenu;
+private JMenuItem Easy;
+private JMenuItem Medium;
+private JMenuItem Expert;
+int difficultyLevel = 1;
 
 public PigGUI()
 {
@@ -54,6 +66,29 @@ public PigGUI()
     howtoPlay = new JMenuItem("How to Play");
     menuBar = new JMenuBar();
     dice = new Dice();
+    
+    Six = new JMenuItem("D-6");
+    twelve = new JMenuItem("D-12");
+    twenty = new JMenuItem("D-20");
+    
+    diceSides = new JMenu("Dice Sides");
+    diceMenu = new JMenuBar();
+    diceSides.add(Six);
+    diceSides.add(twelve);
+    diceSides.add(twenty);
+    diceMenu.add(diceSides);
+    
+    
+    Easy = new JMenuItem("Easy");
+    Medium = new JMenuItem("Medium");
+    Expert = new JMenuItem("EXPERT MODE!");
+    
+    difficulties = new JMenu("Difficulty Levels");
+    difficultyMenu = new JMenuBar();
+    difficulties.add(Easy);
+    difficulties.add(Medium);
+    difficulties.add(Expert);
+    difficultyMenu.add(difficulties);
 
     options.add(quit);
     options.add(seeStats);
@@ -114,21 +149,21 @@ public PigGUI()
     lblDiceSides.setBounds(781, 294, 122, 16);
     mainPanel.add(lblDiceSides);
     
-    txtEnterNumber = new JTextField();
-    txtEnterNumber.setText("enter number 1-20");
-    txtEnterNumber.setBounds(903, 289, 130, 26);
-    mainPanel.add(txtEnterNumber);
-    txtEnterNumber.setColumns(10);
+    //txtEnterNumber = new JTextField();
+    //txtEnterNumber.setText("enter number 1-20");
+    diceMenu.setBounds(903, 289, 130, 26);
+    mainPanel.add(diceMenu);
+    //diceMenu.addFocusListener(this);
     
     JLabel label_1 = new JLabel("Set difficulty:");
     label_1.setBounds(781, 338, 122, 16);
     mainPanel.add(label_1);
     
-    textField = new JTextField();
-    textField.setText("enter number 1-3");
-    textField.setColumns(10);
-    textField.setBounds(903, 333, 130, 26);
-    mainPanel.add(textField);
+   // textField = new JTextField();
+   // textField.setText("enter number 1-3");
+   // textField.setColumns(10);
+    difficultyMenu.setBounds(903, 333, 130, 26);
+    mainPanel.add(difficultyMenu);
     
     JLabel lblNewLabel_2 = new JLabel("*Easy = 1, Medium = 2, Hard = 3*");
     lblNewLabel_2.setBounds(781, 366, 252, 16);
@@ -152,6 +187,12 @@ public PigGUI()
     seeStats.addActionListener(this);
     howtoPlay.addActionListener(this);
     getContentPane().setLayout(null);
+    Six.addActionListener(this);
+    twelve.addActionListener(this);
+    twenty.addActionListener(this);
+    Easy.addActionListener(this);
+    Medium.addActionListener(this);
+    Expert.addActionListener(this);
     
 
     this.getContentPane().add(mainPanel);
@@ -214,6 +255,39 @@ public void actionPerformed(ActionEvent e) {
 
     	rolling = true;
     }
+    
+    if (e.getSource() == Six) {
+    	diceSideNumber = 6;
+    	diceSides.setText("D-6 Selected.");
+    }
+    
+    if (e.getSource() == twelve) {
+    	diceSideNumber = 12;
+    	diceSides.setText("D-12 Selected.");
+    }
+    
+    if (e.getSource() == twenty) {
+    	diceSideNumber = 20;
+    	diceSides.setText("D-20 Selected.");
+    }
+    
+    if (e.getSource() == Easy){
+    	
+    	difficultyLevel = 1;
+    	difficulties.setText("Easy Level.");
+    }
+    
+    if (e.getSource() == Medium){
+    	
+    	difficultyLevel = 2;
+    	difficulties.setText("Medium Level.");
+    }
+    
+    if (e.getSource() == Expert){
+    	
+    	difficultyLevel = 3;
+    	difficulties.setText("EXPERT MODE!");
+    }
 }
 
 
@@ -223,10 +297,12 @@ public void focusGained(FocusEvent e) {
 	// TODO Auto-generated method stub
 	if (e.getSource().equals(txtEnterYourName)){
 		
-		if(txtEnterYourName.getText().equals(txtEnterYourName.getText())) {
+		if(txtEnterYourName.getText().equals(EnterName)) {
 			txtEnterYourName.setText("");
 		}
 	}
+	
+
 		
     	
 }
@@ -236,10 +312,13 @@ public void focusGained(FocusEvent e) {
 public void focusLost(FocusEvent e) {
 	// TODO Auto-generated method stub
 	if (e.getSource().equals(txtEnterYourName)){
-		System.out.println("y!");
+
 		if(txtEnterYourName.getText().equals("")) {
 			txtEnterYourName.setText(EnterName);
 		}
+
+		
 	}
+
 }
 }
