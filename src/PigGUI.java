@@ -226,9 +226,9 @@ public PigGUI()
     mainPanel.add(optionPanel);
     mainPanel.add(dicePanel_1);
 	mainPanel.add(clear);
-    diceLabel2 = new JLabel();
+    diceLabel2 = new JLabel("",JLabel.CENTER);
     dicePanel_1.add(diceLabel2);
-    diceLabel = new JLabel();
+    diceLabel = new JLabel("",JLabel.CENTER);
     dicePanel_1.add(diceLabel);
  
 
@@ -432,10 +432,14 @@ public void start(){
 	//Display die 1 in dice panel
 	diceLabel.setText(String.valueOf(die1Score));
 	diceLabel.repaint();
+    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage();
+	diceLabel.setIcon(new ImageIcon(imgdie1));
 	
 	//Display die 2 in dice panel
 	diceLabel2.setText(String.valueOf(die2Score));
 	diceLabel2.repaint();
+    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage();
+	diceLabel2.setIcon(new ImageIcon(imgdie2));
 	
 	//Check if a one was rolled
 	if(dice.rollOne()==true){
