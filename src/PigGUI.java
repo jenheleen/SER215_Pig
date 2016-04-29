@@ -435,20 +435,76 @@ public void start(){
 	//Display die 1 in dice panel
 	diceLabel1.setText(String.valueOf(die1Score));
 	diceLabel1.repaint();
-    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
-	diceLabel1.setIcon(new ImageIcon(imgdie1));
+
+	//Display corresponding die image
+	if(die1Score==1){
+	    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
+		diceLabel1.setIcon(new ImageIcon(imgdie1));
+		diceLabel1.repaint();
+		}
+		else if(die1Score==2){
+		    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
+			diceLabel1.setIcon(new ImageIcon(imgdie1));
+			diceLabel1.repaint();
+			}
+		else if(die1Score==3){
+			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die3.gif")).getImage().getScaledInstance(50, 50, 50);
+			diceLabel1.setIcon(new ImageIcon(imgdie1));
+			diceLabel1.repaint();
+			}
+		else if(die1Score==4){
+			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die4.gif")).getImage().getScaledInstance(50, 50, 50);
+			diceLabel1.setIcon(new ImageIcon(imgdie1));
+			diceLabel1.repaint();
+			}
+		else if(die1Score==5){
+			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die5.gif")).getImage().getScaledInstance(50, 50, 50);
+			diceLabel1.setIcon(new ImageIcon(imgdie1));
+			diceLabel1.repaint();
+			}
+		else if(die1Score==6){
+			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die6.gif")).getImage().getScaledInstance(50, 50, 50);
+			diceLabel1.setIcon(new ImageIcon(imgdie1));
+			diceLabel1.repaint();
+			}
+		else{
+			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/dieplus.gif")).getImage().getScaledInstance(50, 50, 50);
+			diceLabel1.setIcon(new ImageIcon(imgdie1));
+			diceLabel1.repaint();
+		}
 	
 	//Display die 2 in dice panel
 	diceLabel2.setText(String.valueOf(die2Score));
 	diceLabel2.repaint();
 	
+	//Display corresponding die image
 	if(die2Score==1){
     Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
 	diceLabel2.setIcon(new ImageIcon(imgdie2));
 	diceLabel2.repaint();
 	}
-	if(die2Score==2){
+	else if(die2Score==2){
 	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
+		diceLabel2.setIcon(new ImageIcon(imgdie2));
+		diceLabel2.repaint();
+		}
+	else if(die2Score==3){
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die3.gif")).getImage().getScaledInstance(50, 50, 50);
+		diceLabel2.setIcon(new ImageIcon(imgdie2));
+		diceLabel2.repaint();
+		}
+	else if(die2Score==4){
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die4.gif")).getImage().getScaledInstance(50, 50, 50);
+		diceLabel2.setIcon(new ImageIcon(imgdie2));
+		diceLabel2.repaint();
+		}
+	else if(die2Score==5){
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die5.gif")).getImage().getScaledInstance(50, 50, 50);
+		diceLabel2.setIcon(new ImageIcon(imgdie2));
+		diceLabel2.repaint();
+		}
+	else if(die2Score==6){
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die6.gif")).getImage().getScaledInstance(50, 50, 50);
 		diceLabel2.setIcon(new ImageIcon(imgdie2));
 		diceLabel2.repaint();
 		}
