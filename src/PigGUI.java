@@ -15,6 +15,7 @@ private JPanel dicePanel_1;
 JButton rollDice;
 JButton hold;
 JButton startGame;
+JButton clear;
 JMenu options;
 JMenuItem quit;
 JMenuItem seeStats;
@@ -37,7 +38,7 @@ private JTextField txtEnterNumber;
 private JLabel lblDiceSides;
 private JTextField txtEnterYourName;
 private JTextField textField;
-private final String EnterName = "Enter Your Name";
+private String EnterName = "Player 1";
 private JMenu diceSides;
 private JMenuItem Six;
 private JMenuItem twelve;
@@ -50,6 +51,7 @@ private JMenuItem Easy;
 private JMenuItem Medium;
 private JMenuItem Expert;
 int difficultyLevel = 1;
+
 
 //pig game info
 final int winPoints = 100;
@@ -65,7 +67,7 @@ private int loss=0;
 private boolean checkTurn;
 private Dice dice;
 
-private String userName="";
+private String userName="Player 1";
 playerName yourName = new playerName(null);
 
 private int userDifficulty = 0;
@@ -216,15 +218,20 @@ public PigGUI()
     startGame = new JButton("Start the Game!");
     startGame.setBounds(840, 395, 149, 29);
     
-    
+    //Clear Console Button
+    clear = new JButton("Clear");
+    clear.setBounds(279, 421, 117, 29);
     
     mainPanel.add(startGame);
     mainPanel.add(optionPanel);
     mainPanel.add(dicePanel_1);
+	mainPanel.add(clear);
     diceLabel2 = new JLabel();
     dicePanel_1.add(diceLabel2);
     diceLabel = new JLabel();
     dicePanel_1.add(diceLabel);
+ 
+
 
 
 
@@ -239,6 +246,7 @@ public PigGUI()
     Medium.addActionListener(this);
     Expert.addActionListener(this);
     startGame.addActionListener(this);
+    clear.addActionListener(this);
     
 
     this.getContentPane().add(mainPanel);
@@ -249,13 +257,16 @@ public PigGUI()
     hold.setBounds(630, 395, 100, 29);
     mainPanel.add(hold);
     
+
+
+   
+    
     //Background image
     Image img = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
     JLabel lblNewLabel = new JLabel("");
     lblNewLabel.setIcon(new ImageIcon(img));
     lblNewLabel.setBounds(6, 6, 1188, 567);
     mainPanel.add(lblNewLabel);
-   
     
 
     rollDice.addActionListener(this);
@@ -271,7 +282,12 @@ public void actionPerformed(ActionEvent e) {
 	
     if (e.getSource() == startGame)
     {
-    	start();
+    	gamePig();
+      
+    }
+    if (e.getSource() == clear)
+    {
+    	textArea.setText("");
       
     }
 	if (e.getSource()== quit)
@@ -351,11 +367,11 @@ public void gamePig(){
 	userScore = 0; 
 	computerScore = 0;
 	checkTurn = false;
-	dice = new Dice();	
+	dice = new Dice();
 	int firstRoll = 0;
 	
 	//Starting game prompts
-	textArea.setText("Pig Dice Game");
+	//textArea.append("Pig Dice Game");
 	//User input name
 	//System.out.println("Enter your name: ");
 	//userName = scan.next();
@@ -365,20 +381,21 @@ public void gamePig(){
 	 dice = new Dice(diceSideNumber);
 	
 	//Starting game message
-	 textArea.setText("\n");
-	 textArea.setText(userName + " has started a game of Pig. \n");
+	 textArea.append("\n");
+	 textArea.append(userName + " has started a game of Pig. \n");
 	
 	//Determine who goes first
-	 textArea.setText("Coin toss to see who goes first...\n");
+	 textArea.append("Coin toss to see who goes first...\n");
 	firstRoll = (int)(Math.random() * 2) + 1; 
 	if(firstRoll==1){
 		checkTurn=false; //Set user as first turn
-		textArea.setText(userName + " goes first!\n");
+		textArea.append(userName + " goes first!\n");
 	}
 	else{
 		checkTurn=true; //Set computer as first turn
-		textArea.setText("Computer goes first!\n");	
+		textArea.append("Computer goes first!\n");	
 	}
+	start();
 }
 public void start(){
 	//Variables
@@ -554,7 +571,7 @@ public void focusGained(FocusEvent e) {
 	
 
 		
-    	
+   	
 }
 
 
