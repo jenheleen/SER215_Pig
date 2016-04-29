@@ -3,6 +3,7 @@ import javax.swing.text.DefaultCaret;
 
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.border.LineBorder;
 
 
 
@@ -21,8 +22,8 @@ JMenuItem quit;
 JMenuItem seeStats;
 JMenuItem howtoPlay;
 JMenuBar menuBar;
-JLabel diceLabel;
 JLabel diceLabel2;
+JLabel diceLabel1;
 Graphics die1;
 Graphics die2;
 private boolean rolling;
@@ -127,6 +128,8 @@ public PigGUI()
     optionPanel.setPreferredSize(new Dimension(600,100));
     
     dicePanel_1 = new JPanel(new GridLayout(2,1));
+    dicePanel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+    dicePanel_1.setBackground(new Color(255, 255, 204));
     dicePanel_1.setBounds(530, 251, 200, 132);
 
     mainPanel.setPreferredSize(new Dimension(600,600));
@@ -226,10 +229,10 @@ public PigGUI()
     mainPanel.add(optionPanel);
     mainPanel.add(dicePanel_1);
 	mainPanel.add(clear);
+    diceLabel1 = new JLabel("",JLabel.CENTER);
+    dicePanel_1.add(diceLabel1);
     diceLabel2 = new JLabel("",JLabel.CENTER);
     dicePanel_1.add(diceLabel2);
-    diceLabel = new JLabel("",JLabel.CENTER);
-    dicePanel_1.add(diceLabel);
  
 
 
@@ -428,18 +431,34 @@ public void start(){
 
 	//Display scores from turn
 	textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
-	
+
 	//Display die 1 in dice panel
-	diceLabel.setText(String.valueOf(die1Score));
-	diceLabel.repaint();
-    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage();
-	diceLabel.setIcon(new ImageIcon(imgdie1));
+	diceLabel1.setText(String.valueOf(die1Score));
+	diceLabel1.repaint();
+    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.jpg")).getImage();
+	diceLabel1.setIcon(new ImageIcon(imgdie1));
 	
 	//Display die 2 in dice panel
 	diceLabel2.setText(String.valueOf(die2Score));
 	diceLabel2.repaint();
-    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage();
+	
+	if(die2Score==1){
+    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.jpg")).getImage();
 	diceLabel2.setIcon(new ImageIcon(imgdie2));
+	diceLabel2.repaint();
+	}
+	if(die2Score==2){
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.jpg")).getImage();
+		diceLabel2.setIcon(new ImageIcon(imgdie2));
+		diceLabel2.repaint();
+		}
+	else{
+		Image imgdie2 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage();
+		diceLabel2.setIcon(new ImageIcon(imgdie2));
+		diceLabel2.repaint();
+	}
+	
+
 	
 	//Check if a one was rolled
 	if(dice.rollOne()==true){
