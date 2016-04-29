@@ -5,9 +5,9 @@ public class Main{
 			//Creates new pig game
 			PigGUI  gameGUI = new PigGUI();
 			 gameGUI.setVisible(true);
-			gamePig round = new gamePig();
+			//gamePig round = new gamePig();
 			//Starts game
-			round.start();		
+			//round.start();		
 		}
 
 	}
