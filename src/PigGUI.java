@@ -1,8 +1,8 @@
 import javax.swing.*;
+
+
 import java.awt.*;
 import java.awt.event.*;
-
-
 
 public class PigGUI extends JFrame implements ActionListener, FocusListener
 {
@@ -110,10 +110,11 @@ public PigGUI()
     textArea.setBounds(184, 251, 319, 173);
     mainPanel.add(textArea);
     
+    
     lblPlayerSettings = new JLabel("Console:");
     lblPlayerSettings.setBounds(184, 230, 141, 16);
     mainPanel.add(lblPlayerSettings);
-    
+     
     lblPlayer = new JLabel("PLAYER 1:");
     lblPlayer.setBounds(184, 184, 85, 16);
     mainPanel.add(lblPlayer);
@@ -170,7 +171,7 @@ public PigGUI()
     mainPanel.add(lblNewLabel_2);
     
     JButton btnNewButton = new JButton("Save Player Settings");
-    btnNewButton.setBounds(840, 395, 149, 29);
+    btnNewButton.setBounds(840, 395, 160, 29);
     
     
     mainPanel.add(btnNewButton);
@@ -193,7 +194,7 @@ public PigGUI()
     Easy.addActionListener(this);
     Medium.addActionListener(this);
     Expert.addActionListener(this);
-    
+    btnNewButton.addActionListener(this);
 
     this.getContentPane().add(mainPanel);
     rollDice = new JButton("Roll Dice");
@@ -212,6 +213,7 @@ public PigGUI()
     
 
     rollDice.addActionListener(this);
+    hold.addActionListener(this);
 
     this.pack();
     //Closes program on exit
@@ -223,9 +225,7 @@ public PigGUI()
 public void actionPerformed(ActionEvent e) {
 	
     if (e.getSource()== quit)
-        System.exit(0);
-    
-    
+        System.exit(0);  
 
     if (e.getSource() == seeStats)
     {
@@ -249,11 +249,14 @@ public void actionPerformed(ActionEvent e) {
                 + "The game will end once you or the computer reaches 100 or more points.\n"); 
     }
 
-    if (e.getSource() == rollDice)
+    if (e.getSource() == rollDice) //roll
     {
-
-
     	rolling = true;
+    }
+    
+    if(e.getSource() == hold) //hold
+    {
+    	rolling = false;
     }
     
     if (e.getSource() == Six) {
