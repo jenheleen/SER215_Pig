@@ -435,7 +435,7 @@ public void start(){
 	//Display die 1 in dice panel
 	diceLabel1.setText(String.valueOf(die1Score));
 	diceLabel1.repaint();
-    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.jpg")).getImage();
+    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
 	diceLabel1.setIcon(new ImageIcon(imgdie1));
 	
 	//Display die 2 in dice panel
@@ -443,17 +443,17 @@ public void start(){
 	diceLabel2.repaint();
 	
 	if(die2Score==1){
-    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.jpg")).getImage();
+    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
 	diceLabel2.setIcon(new ImageIcon(imgdie2));
 	diceLabel2.repaint();
 	}
 	if(die2Score==2){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.jpg")).getImage();
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
 		diceLabel2.setIcon(new ImageIcon(imgdie2));
 		diceLabel2.repaint();
 		}
 	else{
-		Image imgdie2 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage();
+		Image imgdie2 = new ImageIcon(this.getClass().getResource("/dieplus.gif")).getImage().getScaledInstance(50, 50, 50);
 		diceLabel2.setIcon(new ImageIcon(imgdie2));
 		diceLabel2.repaint();
 	}
