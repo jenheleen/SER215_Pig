@@ -233,10 +233,6 @@ public PigGUI()
     dicePanel_1.add(diceLabel1);
     diceLabel2 = new JLabel("",JLabel.CENTER);
     dicePanel_1.add(diceLabel2);
- 
-
-
-
 
     quit.addActionListener(this);
     seeStats.addActionListener(this);
@@ -251,7 +247,6 @@ public PigGUI()
     startGame.addActionListener(this);
     clear.addActionListener(this);
     
-
     this.getContentPane().add(mainPanel);
     rollDice = new JButton("Roll Dice");
     rollDice.setBounds(528, 395, 100, 29);
@@ -259,11 +254,7 @@ public PigGUI()
     hold = new JButton("Hold");
     hold.setBounds(630, 395, 100, 29);
     mainPanel.add(hold);
-    
-
-
-   
-    
+      
     //Background image
     Image img = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
     JLabel lblNewLabel = new JLabel("");
@@ -271,7 +262,6 @@ public PigGUI()
     lblNewLabel.setBounds(6, 6, 1188, 567);
     mainPanel.add(lblNewLabel);
     
-
     rollDice.addActionListener(this);
 
     this.pack();
@@ -279,7 +269,6 @@ public PigGUI()
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setVisible(true);
 }
-
 
 public void actionPerformed(ActionEvent e) {
 	
@@ -294,7 +283,9 @@ public void actionPerformed(ActionEvent e) {
       
     }
 	if (e.getSource()== quit)
+	{
         System.exit(0);
+	}
     
     
 
