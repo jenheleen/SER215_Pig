@@ -30,8 +30,8 @@ private JTextArea textArea;
 private JLabel lblPlayerSettings;
 private JLabel lblPlayer;
 private JLabel lblComputerPlayer;
-private JLabel lblPlayerScore;
-private JLabel label;
+JLabel lblPlayerScore;
+JLabel lblComputerScore;
 private JLabel lblNewLabel_1;
 private JLabel lblPlayerName;
 private JTextField txtEnterNumber;
@@ -156,7 +156,7 @@ public PigGUI()
     mainPanel.add(lblPlayer);
     
     //Player 1 Score Label
-    lblPlayerScore = new JLabel("PLAYER 1 SCORE");
+    lblPlayerScore = new JLabel("PLAYER 1 SCORE", JLabel.CENTER);
     lblPlayerScore.setBounds(255, 184, 141, 16);
     mainPanel.add(lblPlayerScore);
     
@@ -166,9 +166,9 @@ public PigGUI()
     mainPanel.add(lblComputerPlayer);
     
     //Computer Score Label
-    label = new JLabel("COMPUTER SCORE");
-    label.setBounds(957, 184, 122, 16);
-    mainPanel.add(label);
+    lblComputerScore = new JLabel("COMPUTER SCORE");
+    lblComputerScore.setBounds(957, 184, 122, 16);
+    mainPanel.add(lblComputerScore);
     
     //Player Settings Label
     lblNewLabel_1 = new JLabel("Player Settings:");
@@ -451,9 +451,16 @@ public void start(){
 		if(checkTurn == false ){ //user's turn
 			//Calculate user's score
 			userScore = userScore+diceScore;
-			//Print results
+			//Print results in console
 			textArea.append(yourName.getName()+"'s Score:"+userScore);
+			//Print results in JLabel
+			lblPlayerScore.setText(String.valueOf(userScore));
+			lblPlayerScore.repaint();
+			//Print results in Console
 			textArea.append("Computer Score:"+computerScore);
+			//Print results in JLabel
+			lblComputerScore.setText(String.valueOf(computerScore));
+			lblComputerScore.repaint();
 			
 			//Check if winner
 			if ( checkWin(userScore) == true ){
