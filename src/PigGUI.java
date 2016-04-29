@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -69,6 +70,7 @@ playerName yourName = new playerName(null);
 
 private int userDifficulty = 0;
 difficulty difficulty = new difficulty(0);
+private JScrollPane scrollPane;
 
 public PigGUI()
 {
@@ -128,42 +130,55 @@ public PigGUI()
     mainPanel.setPreferredSize(new Dimension(600,600));
     mainPanel.setLayout(null);
     
+    //Console area with scrolling pane
+    textArea = new JTextArea(); 
+    scrollPane = new JScrollPane(textArea);
+    scrollPane.setBounds(184, 251, 319, 173);
+    //Auto scrolls console to the last line
+    DefaultCaret caret = (DefaultCaret)textArea.getCaret();
+    caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+    mainPanel.add(scrollPane);
     //CONSOLE TEXT!
-    textArea = new JTextArea();
     textArea.setBackground(Color.WHITE);
     textArea.setBounds(184, 251, 319, 173);
-    mainPanel.add(textArea);
     textArea.setText("Welcome to PIG!");
     
+    //Console Label
     lblPlayerSettings = new JLabel("Console:");
     lblPlayerSettings.setBounds(184, 230, 141, 16);
     mainPanel.add(lblPlayerSettings);
    
-    
+    //Player 1 Label
     lblPlayer = new JLabel("PLAYER 1:");
     lblPlayer.setBounds(184, 184, 85, 16);
     mainPanel.add(lblPlayer);
     
+    //Player 1 Score Label
     lblPlayerScore = new JLabel("PLAYER 1 SCORE");
     lblPlayerScore.setBounds(255, 184, 141, 16);
     mainPanel.add(lblPlayerScore);
     
+    //Computer Label
     lblComputerPlayer = new JLabel("COMPUTER PLAYER:");
     lblComputerPlayer.setBounds(820, 184, 141, 16);
     mainPanel.add(lblComputerPlayer);
     
+    //Computer Score Label
     label = new JLabel("COMPUTER SCORE");
     label.setBounds(957, 184, 122, 16);
     mainPanel.add(label);
     
+    //Player Settings Label
     lblNewLabel_1 = new JLabel("Player Settings:");
     lblNewLabel_1.setBounds(771, 230, 122, 16);
     mainPanel.add(lblNewLabel_1);
     
+    //Enter player name label
     lblPlayerName = new JLabel("Player Name:");
     lblPlayerName.setBounds(781, 258, 85, 16);
     mainPanel.add(lblPlayerName);
     
+    //Player name field
     txtEnterYourName = new JTextField();
     txtEnterYourName.setText(EnterName);
     txtEnterYourName.setColumns(10);
@@ -171,28 +186,33 @@ public PigGUI()
     mainPanel.add(txtEnterYourName);
     txtEnterYourName.addFocusListener(this);
     
+    //Set dice sides Label
     lblDiceSides = new JLabel("Set dice sides:");
     lblDiceSides.setBounds(781, 294, 122, 16);
     mainPanel.add(lblDiceSides);
     
+    //Dice menu button
     //txtEnterNumber = new JTextField();
     //txtEnterNumber.setText("enter number 1-20");
     diceMenu.setBounds(903, 289, 130, 26);
     mainPanel.add(diceMenu);
     //diceMenu.addFocusListener(this);
     
+    //Set difficulty Label
     JLabel label_1 = new JLabel("Set difficulty:");
     label_1.setBounds(781, 338, 122, 16);
     mainPanel.add(label_1);
     
-
+    //Difficulty Menu button
     difficultyMenu.setBounds(903, 333, 130, 26);
     mainPanel.add(difficultyMenu);
     
+    //Difficulty options label
     JLabel lblNewLabel_2 = new JLabel("*Easy = 1, Medium = 2, Hard = 3*");
     lblNewLabel_2.setBounds(781, 366, 252, 16);
     mainPanel.add(lblNewLabel_2);
     
+    //Start Game Button
     startGame = new JButton("Start the Game!");
     startGame.setBounds(840, 395, 149, 29);
     
@@ -235,6 +255,7 @@ public PigGUI()
     lblNewLabel.setIcon(new ImageIcon(img));
     lblNewLabel.setBounds(6, 6, 1188, 567);
     mainPanel.add(lblNewLabel);
+   
     
 
     rollDice.addActionListener(this);
@@ -261,7 +282,10 @@ public void actionPerformed(ActionEvent e) {
     if (e.getSource() == seeStats)
     {
         JOptionPane.showMessageDialog(mainPanel,
-                "Your stats are: "); 
+                "Your stats are:\n"
+                + "Wins: " + win
+                + "\nLosses: " + loss
+                + "\nTimes played: "+ gameCount); 
       
     }
     //Message dialog under options how to play & set up
@@ -331,7 +355,7 @@ public void gamePig(){
 	int firstRoll = 0;
 	
 	//Starting game prompts
-	textArea.setText("===============Pig Dice Game===============");
+	textArea.setText("Pig Dice Game");
 	//User input name
 	//System.out.println("Enter your name: ");
 	//userName = scan.next();
@@ -341,7 +365,7 @@ public void gamePig(){
 	 dice = new Dice(diceSideNumber);
 	
 	//Starting game message
-	 textArea.setText("=========================================== \n");
+	 textArea.setText("\n");
 	 textArea.setText(userName + " has started a game of Pig. \n");
 	
 	//Determine who goes first
@@ -381,7 +405,7 @@ public void start(){
 	else
 		userTurn = "Computer";
 	//Display whose turn it is
-	textArea.append("================================================= \n");
+	textArea.append("\n");
 	textArea.append("\nIts " + userTurn + "'s turn \n");
 
 	//Display scores from turn
@@ -422,10 +446,10 @@ public void start(){
 				
 				//Display win and game stats
 				textArea.append("\n~~*"+ yourName.getName() +" wins!*~~\n");
-				textArea.append("=================================");
-				textArea.append("Total games played: " +gameCount);
-				textArea.append("Times won: "+win+" loss: "+loss);
-				textArea.append("=================================");
+				//textArea.append("=================================");
+				//textArea.append("Total games played: " +gameCount);
+				//textArea.append("Times won: "+win+" loss: "+loss);
+				//textArea.append("=================================");
 				//Prompt to play again
 				textArea.append("[Play again? Y/N]");
 				
@@ -451,10 +475,10 @@ public void start(){
 				
 				//Display win and game stats
 				textArea.append("\n~~*Computer wins!*~~\n");
-				textArea.append("================GAME STATS=================");
-				textArea.append("Total games played: " +gameCount);
-				textArea.append("Times won: "+win+" loss: "+loss);
-				textArea.append("===========================================");
+				//textArea.append("================GAME STATS=================");
+				//textArea.append("Total games played: " +gameCount);
+				//textArea.append("Times won: "+win+" loss: "+loss);
+				//textArea.append("===========================================");
 				//Prompt to play again
 				textArea.append("[Play again? Y/N]");
 				
@@ -505,7 +529,7 @@ if(computerMaxTurn < difficulty.getlevel()){
 }
 //Hold when max points are reached
 else{
-	textArea.append("The computer has decided to hold.");
+	textArea.append("\nThe computer has decided to hold.");
 }	
 }
 else{
@@ -587,5 +611,3 @@ class difficulty {
 		return level;
 	}
 }
-
-
