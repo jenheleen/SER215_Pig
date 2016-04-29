@@ -532,12 +532,12 @@ public void start(){
 			//Calculate user's score
 			userScore = userScore+diceScore;
 			//Print results in console
-			textArea.append(yourName.getName()+"'s Score:"+userScore);
+			textArea.append(yourName.getName()+"'s Score: "+userScore);
 			//Print results in JLabel
 			lblPlayerScore.setText(String.valueOf(userScore));
 			lblPlayerScore.repaint();
 			//Print results in Console
-			textArea.append("Computer Score:"+computerScore);
+			textArea.append(" Computer Score: "+computerScore);
 			//Print results in JLabel
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
@@ -568,8 +568,8 @@ public void start(){
 			//Calculate computer's score
 			computerScore = computerScore+diceScore;
 			//Print results
-			textArea.append(yourName.getName()+"'s Score:"+userScore);
-			textArea.append("Computer Score:"+computerScore);
+			textArea.append(yourName.getName()+"'s Score: "+userScore);
+			textArea.append(" Computer Score: "+computerScore);
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
 			
