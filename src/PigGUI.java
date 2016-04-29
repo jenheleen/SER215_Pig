@@ -38,7 +38,7 @@ private JTextField txtEnterNumber;
 private JLabel lblDiceSides;
 private JTextField txtEnterYourName;
 private JTextField textField;
-private String EnterName = "Player 1";
+String EnterName = "Player 1";
 private JMenu diceSides;
 private JMenuItem Six;
 private JMenuItem twelve;
@@ -67,7 +67,7 @@ private int loss=0;
 private boolean checkTurn;
 private Dice dice;
 
-private String userName="Player 1";
+private String userName= EnterName;
 playerName yourName = new playerName(null);
 
 private int userDifficulty = 0;
@@ -166,7 +166,7 @@ public PigGUI()
     mainPanel.add(lblComputerPlayer);
     
     //Computer Score Label
-    lblComputerScore = new JLabel("COMPUTER SCORE");
+    lblComputerScore = new JLabel("COMPUTER SCORE",JLabel.CENTER);
     lblComputerScore.setBounds(957, 184, 122, 16);
     mainPanel.add(lblComputerScore);
     
@@ -390,6 +390,7 @@ public void gamePig(){
 	if(firstRoll==1){
 		checkTurn=false; //Set user as first turn
 		textArea.append(userName + " goes first!\n");
+		textArea.append(EnterName + " goes first!\n");
 	}
 	else{
 		checkTurn=true; //Set computer as first turn
@@ -427,6 +428,14 @@ public void start(){
 
 	//Display scores from turn
 	textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
+	
+	//Display die 1 in dice panel
+	diceLabel.setText(String.valueOf(die1Score));
+	diceLabel.repaint();
+	
+	//Display die 2 in dice panel
+	diceLabel2.setText(String.valueOf(die2Score));
+	diceLabel2.repaint();
 	
 	//Check if a one was rolled
 	if(dice.rollOne()==true){
@@ -565,6 +574,10 @@ rolling = true;
 return rolling;
 }
 
+
+
+
+
 @Override
 public void focusGained(FocusEvent e) {
 	
@@ -589,6 +602,9 @@ public void focusLost(FocusEvent e) {
 
 		if(txtEnterYourName.getText().equals("")) {
 			txtEnterYourName.setText(EnterName);
+			txtEnterYourName.repaint();
+			lblPlayerName.setText(EnterName);
+			lblPlayerName.repaint();
 		}
 
 		
