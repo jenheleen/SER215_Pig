@@ -317,8 +317,6 @@ public void actionPerformed(ActionEvent e) {
 
     if (e.getSource() == rollDice)
     {
-
-    	textArea.setText("!");
     	rolling = true;
     }
     
@@ -400,13 +398,11 @@ public void start(){
 	boolean rollAgain = false;
 	int die1Score, die2Score, diceScore;
 	String userTurn;
-	String rolling = null;
-	
+
 	
 	do{
 	//roll dice
 	dice.rollDice();
-	rollAgain = false;
 	//get each dice value & total score
 	die1Score = dice.getdieValue(1);
 	die2Score = dice.getdieValue(2);
@@ -532,12 +528,12 @@ public void start(){
 			//Calculate user's score
 			userScore = userScore+diceScore;
 			//Print results in console
-			textArea.append(yourName.getName()+"'s Score: "+userScore);
+			textArea.append(yourName.getName()+"'s Score:"+userScore);
 			//Print results in JLabel
 			lblPlayerScore.setText(String.valueOf(userScore));
 			lblPlayerScore.repaint();
 			//Print results in Console
-			textArea.append(" Computer Score: "+computerScore);
+			textArea.append("Computer Score:"+computerScore);
 			//Print results in JLabel
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
@@ -568,8 +564,8 @@ public void start(){
 			//Calculate computer's score
 			computerScore = computerScore+diceScore;
 			//Print results
-			textArea.append(yourName.getName()+"'s Score: "+userScore);
-			textArea.append(" Computer Score: "+computerScore);
+			textArea.append(yourName.getName()+"'s Score:"+userScore);
+			textArea.append("Computer Score:"+computerScore);
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
 			
@@ -636,12 +632,23 @@ if(computerMaxTurn < difficulty.getlevel()){
 //Hold when max points are reached
 else{
 	textArea.append("\nThe computer has decided to hold.");
-}	
+	}	
 }
 else{
-//When it's user's turn prompt to roll or hold
+	//USER PROMPTS TO ROLL OR HOLD
+	textArea.append("\nRoll or Hold?");
+	
+	int dialogButton = JOptionPane.YES_NO_OPTION;
+	int dialogResult = JOptionPane.showConfirmDialog(this, "Keep rolling?", "Player 1", dialogButton);
+	if(dialogResult == 0) {
+	  rolling=true;
+	  textArea.append("\nYou keep rolling.");
+	} else {
+	  rolling = false;
+	  textArea.append("\nYou hold.");
+	} 
+	
 
-rolling = true;
 }
 
 return rolling;
