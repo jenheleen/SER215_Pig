@@ -440,11 +440,11 @@ public void start(){
 	//textArea.append("Total Dice Score: " +diceScore + "\n");
 	
 	//Display die 1 in dice panel
-	diceLabel1.setText("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
+	diceLabel1.setText("Die One: "+die1Score);
 	diceLabel1.repaint();
 	//Display corresponding die image
 		if(die1Score==1){
-		    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
+		    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
 			diceLabel1.setIcon(new ImageIcon(imgdie1));
 			diceLabel1.repaint();
 			}
@@ -480,12 +480,12 @@ public void start(){
 			}
 		
 		//Display die 2 in dice panel
-		diceLabel2.setText(String.valueOf(die2Score));
+		diceLabel2.setText(String.valueOf("Die Two: "+die2Score));
 		diceLabel2.repaint();
 		
 		//Display corresponding die image
 		if(die2Score==1){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
 		diceLabel2.setIcon(new ImageIcon(imgdie2));
 		diceLabel2.repaint();
 		}
