@@ -249,22 +249,23 @@ public PigGUI()
     
     txtEnterYourName.addActionListener(this);
     
-    this.getContentPane().add(mainPanel);
-    rollDice = new JButton("Roll Dice");
-    rollDice.setBounds(528, 395, 100, 29);
-    mainPanel.add(rollDice);
-    hold = new JButton("Hold");
-    hold.setBounds(630, 395, 100, 29);
-    mainPanel.add(hold);
+    //CURRENTLY HIDING ROLL/HOLD BUTTONS
+    //rollDice = new JButton("Roll Dice");
+    //rollDice.setBounds(528, 395, 100, 29);
+    //mainPanel.add(rollDice);
+    //hold = new JButton("Hold");
+    //hold.setBounds(630, 395, 100, 29);
+    //mainPanel.add(hold);
       
     //Background image
+    this.getContentPane().add(mainPanel);
     Image img = new ImageIcon(this.getClass().getResource("/background.jpg")).getImage();
     JLabel lblNewLabel = new JLabel("");
     lblNewLabel.setIcon(new ImageIcon(img));
     lblNewLabel.setBounds(6, 6, 1188, 567);
     mainPanel.add(lblNewLabel);
     
-    rollDice.addActionListener(this);
+    //rollDice.addActionListener(this);
 
     this.pack();
     //Closes program on exit
@@ -425,8 +426,9 @@ public void start(){
 	textArea.append("\nIts " + userTurn + "'s turn \n");
 
 	//Display scores from turn
-	textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
-
+	//textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
+	textArea.append("Total Dice Score: " +diceScore + "\n");
+	
 	//Display die 1 in dice panel
 	diceLabel1.setText(String.valueOf(die1Score));
 	diceLabel1.repaint();
@@ -535,12 +537,12 @@ public void start(){
 			//Calculate user's score
 			userScore = userScore+diceScore;
 			//Print results in console
-			textArea.append(yourName.getName()+"'s Score:"+userScore);
+			//textArea.append(yourName.getName()+"'s Score:"+userScore);
 			//Print results in JLabel
 			lblPlayerScore.setText(String.valueOf(userScore));
 			lblPlayerScore.repaint();
 			//Print results in Console
-			textArea.append("Computer Score:"+computerScore);
+			//textArea.append("Computer Score:"+computerScore);
 			//Print results in JLabel
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
@@ -571,8 +573,8 @@ public void start(){
 			//Calculate computer's score
 			computerScore = computerScore+diceScore;
 			//Print results
-			textArea.append(yourName.getName()+"'s Score:"+userScore);
-			textArea.append("Computer Score:"+computerScore);
+			//textArea.append(yourName.getName()+"'s Score:"+userScore);
+			//textArea.append("Computer Score:"+computerScore);
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
 			
@@ -646,7 +648,9 @@ else{
 	textArea.append("\nRoll or Hold?");
 	
 	int dialogButton = JOptionPane.YES_NO_OPTION;
-	int dialogResult = JOptionPane.showConfirmDialog(this, "Keep rolling?", "Player 1", dialogButton);
+    int dialogResult = JOptionPane.showConfirmDialog(this, "Would you like to roll again?\n"
+            + "Your current score: " + userScore
+            + "", "Player 1", dialogButton);
 	if(dialogResult == 0) {
 	  rolling=true;
 	  textArea.append("\nYou keep rolling.");
