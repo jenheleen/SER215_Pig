@@ -5,8 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.LineBorder;
 
-
-
 public class PigGUI extends JFrame implements ActionListener, FocusListener
 {
 JPanel mainPanel;
@@ -94,7 +92,6 @@ public PigGUI()
     dice = new Dice();
     startGame = new JButton();
 
-    
     Six = new JMenuItem("D-6");
     twelve = new JMenuItem("D-12");
     twenty = new JMenuItem("D-20");
@@ -146,7 +143,10 @@ public PigGUI()
     //CONSOLE TEXT!
     textArea.setBackground(Color.WHITE);
     textArea.setBounds(184, 251, 319, 173);
-    textArea.setText("Welcome to PIG!");
+    textArea.setText("Welcome to PIG!"
+    		+ "\nEnter Player Settings before starting the game."
+    		+ "\nSee options > How to Play"
+    		+ "\n");
     
     //Console Label
     lblPlayerSettings = new JLabel("Console:");
@@ -213,9 +213,9 @@ public PigGUI()
     mainPanel.add(difficultyMenu);
     
     //Difficulty options label
-    JLabel lblNewLabel_2 = new JLabel("*Easy = 1, Medium = 2, Hard = 3*");
-    lblNewLabel_2.setBounds(781, 366, 252, 16);
-    mainPanel.add(lblNewLabel_2);
+   // JLabel lblNewLabel_2 = new JLabel("*Easy = 1, Medium = 2, Hard = 3*");
+    //lblNewLabel_2.setBounds(781, 366, 252, 16);
+    //mainPanel.add(lblNewLabel_2);
     
     //Start Game Button
     startGame = new JButton("Start the Game!");
@@ -265,6 +265,7 @@ public PigGUI()
     lblNewLabel.setBounds(6, 6, 1188, 567);
     mainPanel.add(lblNewLabel);
     
+    //HIDING ROLL/HOLD BUTTONS
     //rollDice.addActionListener(this);
 
     this.pack();
@@ -274,24 +275,24 @@ public PigGUI()
 }
 
 public void actionPerformed(ActionEvent e) {
-	
+	//Starts a new game
     if (e.getSource() == startGame)
     {
     	gamePig();
       
     }
+    //Clears console
     if (e.getSource() == clear)
     {
     	textArea.setText("");
       
     }
+    //Option > Quit
 	if (e.getSource()== quit)
 	{
         System.exit(0);
 	}
-    
-    
-
+	//Option > See Game Stats
     if (e.getSource() == seeStats)
     {
         JOptionPane.showMessageDialog(mainPanel,
@@ -390,7 +391,6 @@ public void gamePig(){
 	if(firstRoll==1){
 		checkTurn=false; //Set user as first turn
 		textArea.append(userName + " goes first!\n");
-		textArea.append(EnterName + " goes first!\n");
 	}
 	else{
 		checkTurn=true; //Set computer as first turn
@@ -510,9 +510,7 @@ public void start(){
 		diceLabel2.setIcon(new ImageIcon(imgdie2));
 		diceLabel2.repaint();
 	}
-	
-
-	
+		
 	//Check if a one was rolled
 	if(dice.rollOne()==true){
 		textArea.append("You rolled a 1. You forfeit this turn's points. \n"+ userTurn + " hands over the dice.");
@@ -555,17 +553,7 @@ public void start(){
 				
 				//Display win and game stats
 				textArea.append("\n~~*"+ yourName.getName() +" wins!*~~\n");
-				//textArea.append("=================================");
-				//textArea.append("Total games played: " +gameCount);
-				//textArea.append("Times won: "+win+" loss: "+loss);
-				//textArea.append("=================================");
-				//Prompt to play again
-				//textArea.append("[Play again? Y/N]");
-				
-				//if ( rolling.equals("Y") || rolling.endsWith("y") ){
-				//	start(); //Start new round
-					
-				//}
+				textArea.append("Click Start the Game! to play again.");
 			}
 			
 		}
@@ -586,16 +574,8 @@ public void start(){
 				
 				//Display win and game stats
 				textArea.append("\n~~*Computer wins!*~~\n");
-				//textArea.append("================GAME STATS=================");
-				//textArea.append("Total games played: " +gameCount);
-				//textArea.append("Times won: "+win+" loss: "+loss);
-				//textArea.append("===========================================");
-				//Prompt to play again
-				//textArea.append("[Play again? Y/N]");
-				
-				//if ( rolling.equals("Y") || rolling.endsWith("y") ){
-				//	start(); //Start new round
-				//}
+				textArea.append("Click Start the Game! to play again.");
+	
 			}
 			
 		}
@@ -666,9 +646,6 @@ return rolling;
 }
 
 
-
-
-
 @Override
 public void focusGained(FocusEvent e) {
 	
@@ -679,10 +656,6 @@ public void focusGained(FocusEvent e) {
 			txtEnterYourName.setText("");
 		}
 	}
-	
-
-		
-   	
 }
 
 
