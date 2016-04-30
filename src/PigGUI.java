@@ -527,9 +527,9 @@ public void start(){
 	if(dice.rollOne()==true){
 		if( checkTurn == false ){
 			checkTurn = !checkTurn; //End current turn
-			userScore = userTempScore;
-			lblPlayerScore.setText(String.valueOf(userTempScore));
-			lblPlayerScore.repaint();
+			//userScore = userTempScore;
+			//lblPlayerScore.setText(String.valueOf(userTempScore));
+			//lblPlayerScore.repaint();
 			//JOptionPane.showMessageDialog(null, "You rolled a 1. You forfeit this turn's points. \n"+ txtEnterYourName.getText() + " sadly hands over the dice.");
 			if (JOptionPane.showConfirmDialog(null, "You rolled a 1. Keep playing (Yes) or RAGE QUIT(No)?",
 			        userTurn, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -543,9 +543,9 @@ public void start(){
 			
 			checkTurn = !checkTurn; //End current turn
 			JOptionPane.showMessageDialog(null, "Computer rolled a 1! \n It grumpily hands over the dice.");
-			computerScore = computerTempScore;
-			lblComputerScore.setText(String.valueOf(computerScore));
-			lblComputerScore.repaint();
+			//computerScore = computerTempScore;
+			//lblComputerScore.setText(String.valueOf(computerScore));
+			//lblComputerScore.repaint();
 		}
 		
 		
