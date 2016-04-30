@@ -544,7 +544,7 @@ public void start(){
 			checkTurn = !checkTurn; //End current turn
 			JOptionPane.showMessageDialog(null, "Computer rolled a 1! \n It grumpily hands over the dice.");
 			computerScore = computerTempScore;
-			lblComputerScore.setText(String.valueOf(computerScore));
+			lblComputerScore.setText(String.valueOf(computerTempScore));
 			lblComputerScore.repaint();
 		}
 		
@@ -627,12 +627,18 @@ public void start(){
 			}
 			else{
 				// End turn. Hand dice over
-				userTempScore = userScore;
+				
 				if(checkTurn == true){
-					
+					userTempScore = userScore;
+					checkTurn = !checkTurn; 
+					computerMaxTurn = 0; //Resets computer's max points per turn
 				}
-				checkTurn = !checkTurn; 
-				computerMaxTurn = 0; //Resets computer's max points per turn
+				else{
+					computerTempScore = computerScore;
+					checkTurn = !checkTurn; 
+					computerMaxTurn = 0; //Resets computer's max points per turn
+				}
+
 			}	
 		}						
 	}		
