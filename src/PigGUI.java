@@ -1,14 +1,14 @@
+//IMPORTS
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.LineBorder;
 
 
 @SuppressWarnings({ "unused", "serial" })
-public class PigGUI extends JFrame implements ActionListener, FocusListener
-{
+public class PigGUI extends JFrame implements ActionListener, FocusListener {
+//Variables
 JPanel mainPanel;
 JPanel optionPanel;
 JPanel dicePanel;
@@ -56,27 +56,24 @@ int difficultyLevel = 1;
 
 //pig game info
 final int winPoints = 100;
-
 private int userScore;
 private int computerScore;
 private int computerMaxTurn = 0;
 private int gameCount = 0;
 private int win=0;
 private int loss=0;
-
 private boolean checkTurn;
 private Dice dice;
-
 private String userName= EnterName;
 playerName yourName = new playerName(null);
-
 private int userDifficulty = 0;
 difficulty difficulty = new difficulty(0);
 private JScrollPane scrollPane;
 
+//GUI Class
 public PigGUI()
 {
-
+	//Set game window
     setTitle("Play Pig!");
     this.setPreferredSize(new Dimension(1200,600));
 
@@ -94,6 +91,7 @@ public PigGUI()
     dice = new Dice();
     startGame = new JButton();
 
+    //Dice menu & options
     Six = new JMenuItem("D-6");
     twelve = new JMenuItem("D-12");
     twenty = new JMenuItem("D-20");
@@ -105,6 +103,7 @@ public PigGUI()
     diceSides.add(twenty);
     diceMenu.add(diceSides);
     
+    //Difficulty menu & options
     Easy = new JMenuItem("Easy");
     Medium = new JMenuItem("Medium");
     Expert = new JMenuItem("EXPERT MODE!");
@@ -116,15 +115,15 @@ public PigGUI()
     difficulties.add(Expert);
     difficultyMenu.add(difficulties);
 
+    //Options menu
     options.add(quit);
     options.add(seeStats);
     options.add(howtoPlay);
-
     menuBar.add(options);
-
     optionPanel.add(menuBar);
     optionPanel.setPreferredSize(new Dimension(600,100));
     
+    //Dice Panel
     dicePanel_1 = new JPanel(new GridLayout(2,1));
     dicePanel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
     dicePanel_1.setBackground(new Color(255, 255, 204));
@@ -141,7 +140,6 @@ public PigGUI()
     DefaultCaret caret = (DefaultCaret)textArea.getCaret();
     caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     mainPanel.add(scrollPane);
-    
     //CONSOLE TEXT!
     textArea.setBackground(Color.WHITE);
     textArea.setBounds(184, 251, 319, 173);
@@ -199,7 +197,6 @@ public PigGUI()
     mainPanel.add(lblDiceSides);
     diceMenu.setBounds(903, 289, 130, 26);
     mainPanel.add(diceMenu);
-
     
     //Set difficulty Label
     JLabel label_1 = new JLabel("Set difficulty:");
@@ -297,7 +294,7 @@ public void actionPerformed(ActionEvent e) {
                 + "Your turn ends once you decide to hold or if you roll a 1, or snake eyes.\n"
                 + "The game will end once you or the computer reaches 100 or more points.\n"); 
     }
-
+    //Dice Settings
     if (e.getSource() == Six) {
     	diceSideNumber = 6;
     	diceSides.setText("D-6 Selected.");
@@ -312,7 +309,7 @@ public void actionPerformed(ActionEvent e) {
     	diceSideNumber = 20;
     	diceSides.setText("D-20 Selected.");
     }
-    
+    //Difficulty Settings
     if (e.getSource() == Easy){
     	
     	difficultyLevel = 1;
@@ -381,15 +378,15 @@ public void gamePig(){
 }
 public void start(){
 	//Variables
-	userName=txtEnterYourName.getText();
-	int winner = 0;
-	userScore = 0;
-	int computerScore = 0;
-	boolean rollAgain = false;
+	userName=txtEnterYourName.getText(); //Gets player 1's name
+	int winner = 0;						// Winner flag
+	userScore = 0;						// Player 1's score
+	int computerScore = 0;				// Computer's score
+	boolean rollAgain = false;			//Keeps track of rolling
 	int die1Score, die2Score, diceScore;
-	String userTurn;
-	int userTempScore = userScore;
-	int computerTempScore = computerScore;
+	String userTurn;					
+	int userTempScore = userScore;		//Player 1's temp score before rolling
+	int computerTempScore = computerScore; // Computer's temp score before rolling
 	
 	do{
 	//roll dice
@@ -408,7 +405,6 @@ public void start(){
 	//Display whose turn it is
 	textArea.append("\n");
 	textArea.append("\nIts " + userTurn + "'s turn \n");
-	
 
 	//Display scores from turn
 	textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
@@ -417,7 +413,8 @@ public void start(){
 	//Display die 1 in dice panel
 	diceLabel1.setText("Die One: "+die1Score);
 	diceLabel1.repaint();
-	//Display corresponding die image
+	
+	//Display corresponding die image for die 1
 		if(die1Score==1){
 		    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
 			diceLabel1.setIcon(new ImageIcon(imgdie1));
@@ -458,7 +455,7 @@ public void start(){
 		diceLabel2.setText(String.valueOf("Die Two: "+die2Score));
 		diceLabel2.repaint();
 		
-		//Display corresponding die image
+		//Display corresponding die image for die 2
 		if(die2Score==1){
 	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
 		diceLabel2.setIcon(new ImageIcon(imgdie2));
@@ -494,18 +491,17 @@ public void start(){
 			diceLabel2.setIcon(new ImageIcon(imgdie2));
 			diceLabel2.repaint();
 		}
-
-	//Display corresponding die image
 	
 	//Check if a one was rolled
 	if(dice.rollOne()==true){
-		if( checkTurn == false ){
+		if( checkTurn == false ){ //If player 1 rolled a one
 			checkTurn = !checkTurn; //End current turn
+			JOptionPane.showMessageDialog(null, "You've rolled a 1 and lost " +(userScore - userTempScore) +" points from this round!");
 			userScore = userTempScore;
 			lblPlayerScore.setText(String.valueOf(userTempScore));
 			lblPlayerScore.repaint();
 			//JOptionPane.showMessageDialog(null, "You rolled a 1. You forfeit this turn's points. \n"+ txtEnterYourName.getText() + " sadly hands over the dice.");
-			if (JOptionPane.showConfirmDialog(null, "You rolled a 1. Keep playing (Yes) or RAGE QUIT(No)?",
+			if (JOptionPane.showConfirmDialog(null, "Keep playing (Yes) or RAGE QUIT(No)?",
 			        userTurn, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 				JOptionPane.showMessageDialog(null, txtEnterYourName.getText() + " sadly hands over the dice.");
 			} else {
@@ -513,36 +509,31 @@ public void start(){
 			}
 		
 		}
-		else{
-			
+		else{//If Compute player rolled a one
 			checkTurn = !checkTurn; //End current turn
 			JOptionPane.showMessageDialog(null, "Computer rolled a 1! \n It grumpily hands over the dice.");
 			computerScore = computerTempScore;
-			lblComputerScore.setText(String.valueOf(computerTempScore));
+			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
-		}
-		
-		
-		
-		
+		}	
 	}
 	//Check for snake eyes
 	else if(dice.snakeEyes()==true){
 		// Check whose turn & reset that score
-		if( checkTurn == false ){
+		if( checkTurn == false ){ // Player 1 snake eyes
 			userScore = 0;
 			userTempScore = 0;
 			lblPlayerScore.setText(String.valueOf(userScore));
 			lblPlayerScore.repaint();
 			JOptionPane.showMessageDialog(null, "SNAKE EYES - Your total score is now 0.\n "+ userTurn + " hands over dice.");
 		}
-		else{
+		else{ // Computer snake eyes
 			computerScore = 0;
 			computerTempScore = 0;
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
+			JOptionPane.showMessageDialog(null, "Computer rolled a SNAKE EYES - Total score is now 0.\n "+ userTurn + " hands over dice.");
 		}
-		
 		textArea.append("SNAKE EYES - Your total score is now 0.\n "+ userTurn + " hands over dice.");
 		checkTurn = !checkTurn;  // //End current turn
 		
@@ -593,7 +584,6 @@ public void start(){
 				textArea.append("\n=============================");
 				JOptionPane.showMessageDialog(null, "COMPUTER WINS :( \n You can try again by clicking the 'Start the Game' button.");
 			}
-			
 		}
 		//No winners yet
 		if ( winner == 0){
@@ -604,18 +594,13 @@ public void start(){
 			}
 			else{
 				// End turn. Hand dice over
-				
+				userTempScore = userScore; //Update user starting temp score
 				if(checkTurn == true){
-					userTempScore = userScore;
-					checkTurn = !checkTurn; 
-					computerMaxTurn = 0; //Resets computer's max points per turn
+					//Don't put anything here
 				}
-				else{
-					computerTempScore = computerScore;
-					checkTurn = !checkTurn; 
-					computerMaxTurn = 0; //Resets computer's max points per turn
-				}
-
+				computerTempScore = computerScore; //Updates starting temp score
+				checkTurn = !checkTurn; //Ends who ever's turn it is
+				computerMaxTurn = 0; //Resets computer's max points per turn
 			}	
 		}						
 	}		
@@ -653,7 +638,6 @@ else{
 }
 else{
 	//USER PROMPTS TO ROLL OR HOLD
-
 	if (JOptionPane.showConfirmDialog(null, "Roll Again?\n You currently have " + userScore + " points. But you could lose it all If you keep going!", "Should you roll?!",
 	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 	    rolling = true;
@@ -661,8 +645,6 @@ else{
 	    rolling = false;
 	    JOptionPane.showMessageDialog(null, "It's the computer's turn. It could win it all right now.\n Check out the dialog box to see how the computer rolled.");
 	}
-	
-
 }
 
 return rolling;
@@ -707,7 +689,7 @@ public void focusLost(FocusEvent e) {
 }
 }
 
-
+//Player name class
 class playerName {
 	
 	private String name;
@@ -725,6 +707,7 @@ class playerName {
 	}
 }
 
+//Difficulty Class
 class difficulty {
 	
 	private int level;
@@ -745,3 +728,4 @@ class difficulty {
 		return level;
 	}
 }
+//END OF PigGUI CLASS
