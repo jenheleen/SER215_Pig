@@ -75,6 +75,7 @@ private JScrollPane scrollPane;
 
 public PigGUI()
 {
+
     setTitle("Play Pig!");
     this.setPreferredSize(new Dimension(1200,600));
 
@@ -373,6 +374,7 @@ public void gamePig(){
 	checkTurn = false;
 	dice = new Dice();
 	int firstRoll = 0;
+	userName=txtEnterYourName.getText();
 	
 
 	 dice = new Dice(diceSideNumber);
@@ -402,6 +404,7 @@ public void gamePig(){
 }
 public void start(){
 	//Variables
+	userName=txtEnterYourName.getText();
 	int winner = 0;
 	userScore = 0;
 	int computerScore = 0;
@@ -415,8 +418,6 @@ public void start(){
 	
 	do{
 		
-		
-		
 	//roll dice
 	dice.rollDice();
 	//get each dice value & total score
@@ -427,7 +428,7 @@ public void start(){
 	
 	//Check whose turn it is
 	if(checkTurn==false)
-		userTurn = yourName.getName();
+		userTurn = userName;
 	else
 		userTurn = "Computer";
 	//Display whose turn it is
@@ -444,7 +445,7 @@ public void start(){
 	diceLabel1.repaint();
 	//Display corresponding die image
 		if(die1Score==1){
-		    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
+		    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
 			diceLabel1.setIcon(new ImageIcon(imgdie1));
 			diceLabel1.repaint();
 			}
@@ -485,7 +486,7 @@ public void start(){
 		
 		//Display corresponding die image
 		if(die2Score==1){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
+	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die1.gif")).getImage().getScaledInstance(50, 50, 50);
 		diceLabel2.setIcon(new ImageIcon(imgdie2));
 		diceLabel2.repaint();
 		}
