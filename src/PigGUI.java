@@ -247,6 +247,8 @@ public PigGUI()
     startGame.addActionListener(this);
     clear.addActionListener(this);
     
+    txtEnterYourName.addActionListener(this);
+    
     this.getContentPane().add(mainPanel);
     rollDice = new JButton("Roll Dice");
     rollDice.setBounds(528, 395, 100, 29);
@@ -352,6 +354,11 @@ public void actionPerformed(ActionEvent e) {
     	difficultyLevel = 3;
     	difficulties.setText("EXPERT MODE!");
     }
+    
+    if (e.getSource().equals(txtEnterYourName)) //working on getting name entry to work.
+    {
+    	EnterName = textField.getText();
+    }	
 }
 
 public void gamePig(){
@@ -685,9 +692,7 @@ public void focusLost(FocusEvent e) {
 			txtEnterYourName.repaint();
 			lblPlayerName.setText(EnterName);
 			lblPlayerName.repaint();
-		}
-
-		
+		}	
 	}
 
 }
