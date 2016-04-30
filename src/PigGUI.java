@@ -342,18 +342,21 @@ public void actionPerformed(ActionEvent e) {
     if (e.getSource() == Easy){
     	
     	difficultyLevel = 1;
+    	difficulty.setlevel(1);
     	difficulties.setText("Easy Level.");
     }
     
     if (e.getSource() == Medium){
     	
     	difficultyLevel = 2;
+    	difficulty.setlevel(2);
     	difficulties.setText("Medium Level.");
     }
     
     if (e.getSource() == Expert){
     	
     	difficultyLevel = 3;
+    	difficulty.setlevel(3);
     	difficulties.setText("EXPERT MODE!");
     }
     
@@ -376,7 +379,7 @@ public void gamePig(){
 	//User input name
 	//System.out.println("Enter your name: ");
 	//userName = scan.next();
-	yourName.setplayerName(EnterName);
+	//yourName.setplayerName(EnterName);
 	//User input game difficulty
 	
 	 dice = new Dice(diceSideNumber);
@@ -391,11 +394,22 @@ public void gamePig(){
 	if(firstRoll==1){
 		checkTurn=false; //Set user as first turn
 		textArea.append(userName + " goes first!\n");
+		/**if (JOptionPane.showConfirmDialog(null, "Coin Toss! \n" + EnterName + " goes first!\n", "Coin Toss!",
+		        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		    
+		} else {
+		    
+		}*/
+		JOptionPane.showMessageDialog(null, "Coin Toss! \n" + txtEnterYourName.getText() + " goes first!\n");
 	}
+		
+	
 	else{
 		checkTurn=true; //Set computer as first turn
 		textArea.append("Computer goes first!\n");	
+		JOptionPane.showMessageDialog(null, "Coin Toss! \n Sorry, Computer goes first. :(\n");
 	}
+
 	start();
 }
 public void start(){
@@ -406,15 +420,23 @@ public void start(){
 	boolean rollAgain = false;
 	int die1Score, die2Score, diceScore;
 	String userTurn;
-
+	int userTempScore = userScore;
+	int computerTempScore = computerScore;
+	lblPlayerScore.setText(String.valueOf(userTempScore));
+	lblPlayerScore.repaint();
 	
 	do{
+		
+		
+		
 	//roll dice
 	dice.rollDice();
 	//get each dice value & total score
 	die1Score = dice.getdieValue(1);
 	die2Score = dice.getdieValue(2);
 	diceScore = dice.getPairValue();
+
+	System.out.println(userTempScore);
 	
 	//Check whose turn it is
 	if(checkTurn==false)
@@ -424,97 +446,45 @@ public void start(){
 	//Display whose turn it is
 	textArea.append("\n");
 	textArea.append("\nIts " + userTurn + "'s turn \n");
+	
 
 	//Display scores from turn
-	//textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
-	textArea.append("Total Dice Score: " +diceScore + "\n");
+	textArea.append("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
+	//textArea.append("Total Dice Score: " +diceScore + "\n");
 	
 	//Display die 1 in dice panel
-	diceLabel1.setText(String.valueOf(die1Score));
-	diceLabel1.repaint();
+	diceLabel1.setText("Die One:"+die1Score+" || Die Two:"+die2Score +" || Total:" +diceScore + "\n");
+	//diceLabel1.repaint();
 
 	//Display corresponding die image
-	if(die1Score==1){
-	    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
-		diceLabel1.setIcon(new ImageIcon(imgdie1));
-		diceLabel1.repaint();
-		}
-		else if(die1Score==2){
-		    Image imgdie1 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
-			diceLabel1.setIcon(new ImageIcon(imgdie1));
-			diceLabel1.repaint();
-			}
-		else if(die1Score==3){
-			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die3.gif")).getImage().getScaledInstance(50, 50, 50);
-			diceLabel1.setIcon(new ImageIcon(imgdie1));
-			diceLabel1.repaint();
-			}
-		else if(die1Score==4){
-			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die4.gif")).getImage().getScaledInstance(50, 50, 50);
-			diceLabel1.setIcon(new ImageIcon(imgdie1));
-			diceLabel1.repaint();
-			}
-		else if(die1Score==5){
-			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die5.gif")).getImage().getScaledInstance(50, 50, 50);
-			diceLabel1.setIcon(new ImageIcon(imgdie1));
-			diceLabel1.repaint();
-			}
-		else if(die1Score==6){
-			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/die6.gif")).getImage().getScaledInstance(50, 50, 50);
-			diceLabel1.setIcon(new ImageIcon(imgdie1));
-			diceLabel1.repaint();
-			}
-		else{
-			 Image imgdie1 = new ImageIcon(this.getClass().getResource("/dieplus.gif")).getImage().getScaledInstance(50, 50, 50);
-			diceLabel1.setIcon(new ImageIcon(imgdie1));
-			diceLabel1.repaint();
-		}
 	
-	//Display die 2 in dice panel
-	diceLabel2.setText(String.valueOf(die2Score));
-	diceLabel2.repaint();
-	
-	//Display corresponding die image
-	if(die2Score==1){
-    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
-	diceLabel2.setIcon(new ImageIcon(imgdie2));
-	diceLabel2.repaint();
-	}
-	else if(die2Score==2){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die2.gif")).getImage().getScaledInstance(50, 50, 50);
-		diceLabel2.setIcon(new ImageIcon(imgdie2));
-		diceLabel2.repaint();
-		}
-	else if(die2Score==3){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die3.gif")).getImage().getScaledInstance(50, 50, 50);
-		diceLabel2.setIcon(new ImageIcon(imgdie2));
-		diceLabel2.repaint();
-		}
-	else if(die2Score==4){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die4.gif")).getImage().getScaledInstance(50, 50, 50);
-		diceLabel2.setIcon(new ImageIcon(imgdie2));
-		diceLabel2.repaint();
-		}
-	else if(die2Score==5){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die5.gif")).getImage().getScaledInstance(50, 50, 50);
-		diceLabel2.setIcon(new ImageIcon(imgdie2));
-		diceLabel2.repaint();
-		}
-	else if(die2Score==6){
-	    Image imgdie2 = new ImageIcon(this.getClass().getResource("/die6.gif")).getImage().getScaledInstance(50, 50, 50);
-		diceLabel2.setIcon(new ImageIcon(imgdie2));
-		diceLabel2.repaint();
-		}
-	else{
-		Image imgdie2 = new ImageIcon(this.getClass().getResource("/dieplus.gif")).getImage().getScaledInstance(50, 50, 50);
-		diceLabel2.setIcon(new ImageIcon(imgdie2));
-		diceLabel2.repaint();
-	}
-		
 	//Check if a one was rolled
 	if(dice.rollOne()==true){
-		textArea.append("You rolled a 1. You forfeit this turn's points. \n"+ userTurn + " hands over the dice.");
-		checkTurn = !checkTurn; //End current turn
+		if( checkTurn == false ){
+			checkTurn = !checkTurn; //End current turn
+			userScore = userTempScore;
+			lblPlayerScore.setText(String.valueOf(userTempScore));
+			lblPlayerScore.repaint();
+			//JOptionPane.showMessageDialog(null, "You rolled a 1. You forfeit this turn's points. \n"+ txtEnterYourName.getText() + " sadly hands over the dice.");
+			if (JOptionPane.showConfirmDialog(null, "You rolled a 1. Keep playing (Yes) or RAGE QUIT(No)?",
+			        userTurn, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				JOptionPane.showMessageDialog(null, txtEnterYourName.getText() + " sadly hands over the dice.");
+			} else {
+			    break;
+			}
+		
+		}
+		else{
+			
+			checkTurn = !checkTurn; //End current turn
+			JOptionPane.showMessageDialog(null, "Computer rolled a 1! \n It grumpily hands over the dice.");
+			computerScore = computerTempScore;
+			lblComputerScore.setText(String.valueOf(computerScore));
+			lblComputerScore.repaint();
+		}
+		
+		
+		
 		
 	}
 	//Check for snake eyes
@@ -522,20 +492,26 @@ public void start(){
 		// Check whose turn & reset that score
 		if( checkTurn == false ){
 			userScore = 0;
+			userTempScore = 0;
+			lblPlayerScore.setText(String.valueOf(userTempScore));
+			lblPlayerScore.repaint();
+			JOptionPane.showMessageDialog(null, "SNAKE EYES - Your total score is now 0.\n "+ userTurn + " hands over dice.");
 		}
 		else{
 			computerScore = 0;
+			computerTempScore = 0;
+			lblComputerScore.setText(String.valueOf(computerScore));
+			lblComputerScore.repaint();
 		}
+		
 		textArea.append("SNAKE EYES - Your total score is now 0.\n "+ userTurn + " hands over dice.");
 		checkTurn = !checkTurn;  // //End current turn
 		
 	}
 	else{//If no 1 or no snake eyes
 		if(checkTurn == false ){ //user's turn
-			//Calculate user's score
+
 			userScore = userScore+diceScore;
-			//Print results in console
-			//textArea.append(yourName.getName()+"'s Score:"+userScore);
 			//Print results in JLabel
 			lblPlayerScore.setText(String.valueOf(userScore));
 			lblPlayerScore.repaint();
@@ -552,17 +528,16 @@ public void start(){
 				gameCount++; // Add to total game count
 				
 				//Display win and game stats
-				textArea.append("\n~~*"+ yourName.getName() +" wins!*~~\n");
+				textArea.append("\n~~*"+ txtEnterYourName.getText() +" wins!*~~\n");
 				textArea.append("Click Start the Game! to play again.");
+				JOptionPane.showMessageDialog(null, "YOU WIN!!!!! :D \n"+ " You can win again by clicking the 'Start the Game' button. \n Or see you stats by checking to the options menu!");
 			}
 			
 		}
 		else{ // Computer's turn
 			//Calculate computer's score
 			computerScore = computerScore+diceScore;
-			//Print results
-			//textArea.append(yourName.getName()+"'s Score:"+userScore);
-			//textArea.append("Computer Score:"+computerScore);
+
 			lblComputerScore.setText(String.valueOf(computerScore));
 			lblComputerScore.repaint();
 			
@@ -574,6 +549,7 @@ public void start(){
 				
 				//Display win and game stats
 				textArea.append("\n~~*Computer wins!*~~\n");
+				JOptionPane.showMessageDialog(null, "COMPUTER WINS :( \n You can try again by clicking the 'Start the Game' button.");
 				textArea.append("Click Start the Game! to play again.");
 	
 			}
@@ -588,6 +564,10 @@ public void start(){
 			}
 			else{
 				// End turn. Hand dice over
+				userTempScore = userScore;
+				if(checkTurn == true){
+					
+				}
 				checkTurn = !checkTurn; 
 				computerMaxTurn = 0; //Resets computer's max points per turn
 			}	
@@ -621,23 +601,20 @@ if(computerMaxTurn < difficulty.getlevel()){
 //Hold when max points are reached
 else{
 	textArea.append("\nThe computer has decided to hold.");
+	JOptionPane.showMessageDialog(null, "The computer decides to hold, and smugly hands over the dice.");
+
 	}	
 }
 else{
 	//USER PROMPTS TO ROLL OR HOLD
-	textArea.append("\nRoll or Hold?");
-	
-	int dialogButton = JOptionPane.YES_NO_OPTION;
-    int dialogResult = JOptionPane.showConfirmDialog(this, "Would you like to roll again?\n"
-            + "Your current score: " + userScore
-            + "", "Player 1", dialogButton);
-	if(dialogResult == 0) {
-	  rolling=true;
-	  textArea.append("\nYou keep rolling.");
+
+	if (JOptionPane.showConfirmDialog(null, "Roll Again?\n You currently have " + userScore + " points. But you could lose it all If you keep going!", "Should you roll?!",
+	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+	    rolling = true;
 	} else {
-	  rolling = false;
-	  textArea.append("\nYou hold.");
-	} 
+	    rolling = false;
+	    JOptionPane.showMessageDialog(null, "It's the computer's turn. It could win it all right now.\n Check out the dialog box to see how the computer rolled.");
+	}
 	
 
 }
@@ -654,7 +631,12 @@ public void focusGained(FocusEvent e) {
 		
 		if(txtEnterYourName.getText().equals(EnterName)) {
 			txtEnterYourName.setText("");
+			
 		}
+		else{
+			lblPlayer.setText(txtEnterYourName.getText());
+		}
+		
 	}
 }
 
@@ -669,7 +651,11 @@ public void focusLost(FocusEvent e) {
 			txtEnterYourName.repaint();
 			lblPlayerName.setText(EnterName);
 			lblPlayerName.repaint();
+			lblPlayer.setText(EnterName);
 		}	
+		else{
+			lblPlayer.setText(txtEnterYourName.getText());
+		}
 	}
 
 }
@@ -700,13 +686,13 @@ class difficulty {
 	public difficulty(int level){
 		if(level == 1) this.level = 1;
 		else if (level == 2)this.level = 20;
-		else this.level = 40;
+		else this.level = 100;
 	}
 
 	public void setlevel(int level){
 		if(level == 1) this.level = 1;
 		else if (level == 2)this.level = 20;
-		else this.level = 40;
+		else this.level = 100;
 	}
 	
 	public int getlevel(){

@@ -265,7 +265,7 @@ public class gamePig {
 		}
 		else{
 		//When it's user's turn prompt to roll or hold
-		System.out.println("[Roll again? Y/N] ");
+	
 		userInput = scan.next();
 		if ( userInput.equals("Y") || userInput.endsWith("y") ){
 			rolling = true;
