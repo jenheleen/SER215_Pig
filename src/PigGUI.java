@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.LineBorder;
 
+
+@SuppressWarnings({ "unused", "serial" })
 public class PigGUI extends JFrame implements ActionListener, FocusListener
 {
 JPanel mainPanel;
@@ -56,7 +58,6 @@ int difficultyLevel = 1;
 final int winPoints = 100;
 
 private int userScore;
-@SuppressWarnings("unused")
 private int computerScore;
 private int computerMaxTurn = 0;
 private int gameCount = 0;
@@ -104,7 +105,6 @@ public PigGUI()
     diceSides.add(twenty);
     diceMenu.add(diceSides);
     
-    
     Easy = new JMenuItem("Easy");
     Medium = new JMenuItem("Medium");
     Expert = new JMenuItem("EXPERT MODE!");
@@ -141,6 +141,7 @@ public PigGUI()
     DefaultCaret caret = (DefaultCaret)textArea.getCaret();
     caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     mainPanel.add(scrollPane);
+    
     //CONSOLE TEXT!
     textArea.setBackground(Color.WHITE);
     textArea.setBounds(184, 251, 319, 173);
@@ -196,13 +197,9 @@ public PigGUI()
     lblDiceSides = new JLabel("Set dice sides:");
     lblDiceSides.setBounds(781, 294, 122, 16);
     mainPanel.add(lblDiceSides);
-    
-    //Dice menu button
-    //txtEnterNumber = new JTextField();
-    //txtEnterNumber.setText("enter number 1-20");
     diceMenu.setBounds(903, 289, 130, 26);
     mainPanel.add(diceMenu);
-    //diceMenu.addFocusListener(this);
+
     
     //Set difficulty Label
     JLabel label_1 = new JLabel("Set difficulty:");
@@ -212,11 +209,6 @@ public PigGUI()
     //Difficulty Menu button
     difficultyMenu.setBounds(903, 333, 130, 26);
     mainPanel.add(difficultyMenu);
-    
-    //Difficulty options label
-   // JLabel lblNewLabel_2 = new JLabel("*Easy = 1, Medium = 2, Hard = 3*");
-    //lblNewLabel_2.setBounds(781, 366, 252, 16);
-    //mainPanel.add(lblNewLabel_2);
     
     //Start Game Button
     startGame = new JButton("Start the Game!");
@@ -235,6 +227,7 @@ public PigGUI()
     diceLabel2 = new JLabel("",JLabel.CENTER);
     dicePanel_1.add(diceLabel2);
 
+    //Listeners
     quit.addActionListener(this);
     seeStats.addActionListener(this);
     howtoPlay.addActionListener(this);
@@ -246,17 +239,8 @@ public PigGUI()
     Medium.addActionListener(this);
     Expert.addActionListener(this);
     startGame.addActionListener(this);
-    clear.addActionListener(this);
-    
+    clear.addActionListener(this);  
     txtEnterYourName.addActionListener(this);
-    
-    //CURRENTLY HIDING ROLL/HOLD BUTTONS
-    //rollDice = new JButton("Roll Dice");
-    //rollDice.setBounds(528, 395, 100, 29);
-    //mainPanel.add(rollDice);
-    //hold = new JButton("Hold");
-    //hold.setBounds(630, 395, 100, 29);
-    //mainPanel.add(hold);
       
     //Background image
     this.getContentPane().add(mainPanel);
@@ -266,9 +250,6 @@ public PigGUI()
     lblNewLabel.setBounds(6, 6, 1188, 567);
     mainPanel.add(lblNewLabel);
     
-    //HIDING ROLL/HOLD BUTTONS
-    //rollDice.addActionListener(this);
-
     this.pack();
     //Closes program on exit
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -279,14 +260,12 @@ public void actionPerformed(ActionEvent e) {
 	//Starts a new game
     if (e.getSource() == startGame)
     {
-    	gamePig();
-      
+    	gamePig(); 
     }
     //Clears console
     if (e.getSource() == clear)
     {
     	textArea.setText("");
-      
     }
     //Option > Quit
 	if (e.getSource()== quit)
@@ -301,7 +280,6 @@ public void actionPerformed(ActionEvent e) {
                 + "Wins: " + win
                 + "\nLosses: " + loss
                 + "\nTimes played: "+ gameCount); 
-      
     }
     //Message dialog under options how to play & set up
     if (e.getSource() == howtoPlay)
@@ -320,11 +298,6 @@ public void actionPerformed(ActionEvent e) {
                 + "The game will end once you or the computer reaches 100 or more points.\n"); 
     }
 
-    if (e.getSource() == rollDice)
-    {
-    	rolling = true;
-    }
-    
     if (e.getSource() == Six) {
     	diceSideNumber = 6;
     	diceSides.setText("D-6 Selected.");
@@ -361,13 +334,14 @@ public void actionPerformed(ActionEvent e) {
     	difficulties.setText("EXPERT MODE!");
     }
     
-    if (e.getSource().equals(txtEnterYourName)) //working on getting name entry to work.
+    if (e.getSource().equals(txtEnterYourName))
     {
     	EnterName = textField.getText();
     }	
 }
-
+//Start a new game
 public void gamePig(){
+	
 	//Variables
 	userScore = 0; 
 	computerScore = 0;
@@ -376,7 +350,13 @@ public void gamePig(){
 	int firstRoll = 0;
 	userName=txtEnterYourName.getText();
 	
-
+	//Reset score labels to 0 on new game
+	lblPlayerScore.setText(String.valueOf(userScore));
+	lblPlayerScore.repaint();
+	lblComputerScore.setText(String.valueOf(computerScore));
+	lblComputerScore.repaint();
+	
+	//Create a new set of dice
 	 dice = new Dice(diceSideNumber);
 	
 	//Starting game message
@@ -389,17 +369,14 @@ public void gamePig(){
 	if(firstRoll==1){
 		checkTurn=false; //Set user as first turn
 		textArea.append(userName + " goes first!\n");
-
 		JOptionPane.showMessageDialog(null, "Coin Toss! \n" + txtEnterYourName.getText() + " goes first!\n");
-	}
-		
-	
+		}
 	else{
 		checkTurn=true; //Set computer as first turn
 		textArea.append("Computer goes first!\n");	
 		JOptionPane.showMessageDialog(null, "Coin Toss! \n Sorry, Computer goes first. :(\n");
 	}
-
+	//Start the game
 	start();
 }
 public void start(){
@@ -413,11 +390,8 @@ public void start(){
 	String userTurn;
 	int userTempScore = userScore;
 	int computerTempScore = computerScore;
-	lblPlayerScore.setText(String.valueOf(userTempScore));
-	lblPlayerScore.repaint();
 	
 	do{
-		
 	//roll dice
 	dice.rollDice();
 	//get each dice value & total score
@@ -558,7 +532,7 @@ public void start(){
 		if( checkTurn == false ){
 			userScore = 0;
 			userTempScore = 0;
-			lblPlayerScore.setText(String.valueOf(userTempScore));
+			lblPlayerScore.setText(String.valueOf(userScore));
 			lblPlayerScore.repaint();
 			JOptionPane.showMessageDialog(null, "SNAKE EYES - Your total score is now 0.\n "+ userTurn + " hands over dice.");
 		}
@@ -591,8 +565,10 @@ public void start(){
 				gameCount++; // Add to total game count
 				
 				//Display win and game stats
+				textArea.append("\n=============================");
 				textArea.append("\n~~*"+ txtEnterYourName.getText() +" wins!*~~\n");
 				textArea.append("Click Start the Game! to play again.");
+				textArea.append("\n=============================");
 				JOptionPane.showMessageDialog(null, "YOU WIN!!!!! :D \n"+ " You can win again by clicking the 'Start the Game' button. \n Or see you stats by checking to the options menu!");
 			}
 			
@@ -611,10 +587,11 @@ public void start(){
 				gameCount++;// Add to total game count
 				
 				//Display win and game stats
+				textArea.append("\n=============================");
 				textArea.append("\n~~*Computer wins!*~~\n");
-				JOptionPane.showMessageDialog(null, "COMPUTER WINS :( \n You can try again by clicking the 'Start the Game' button.");
 				textArea.append("Click Start the Game! to play again.");
-	
+				textArea.append("\n=============================");
+				JOptionPane.showMessageDialog(null, "COMPUTER WINS :( \n You can try again by clicking the 'Start the Game' button.");
 			}
 			
 		}
